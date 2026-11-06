@@ -1,29 +1,25 @@
 import json
 from pathlib import Path
 
-# 임시 데이터. 실제 데이터가 오면 이 파일의 읽는 부분만 수정합니다.
-DATA_FILE = Path(__file__).resolve().parents[3] / "data" / "mock_map.json"
+DATA_DIR = Path(__file__).resolve().parents[3] / "data"
 
 
-def _load_data():
-    with DATA_FILE.open(encoding="utf-8") as file:
+def _load_json(file_name: str):
+    with (DATA_DIR / file_name).open(encoding="utf-8") as file:
         return json.load(file)
 
 
 def get_locations():
-    return _load_data()["locations"]
+    return _load_json("place.json")
 
 
-def get_location_pokemon(location_id: str):
+def get_location_pokemon(location_id: int):
     """장소가 없으면 None, 장소는 있지만 출현 포켓몬이 없으면 빈 목록을 반환합니다."""
-    data = _load_data()
-
-    if not any(location["id"] == location_id for location in data["locations"]):
+    if not any(location["id"] == location_id for location in get_locations()):
         return None
 
-    pokemon_ids = {
-        encounter["pokemon_id"]
-        for encounter in data["encounters"]
-        if encounter["location_id"] == location_id
-    }
-    return [pokemon for pokemon in data["pokemon"] if pokemon["id"] in pokemon_ids]
+    return [
+        pokemon
+        for pokemon in _load_json("mon.json")
+        if location_id in (pokemon["location_ids"] or [])
+    ]

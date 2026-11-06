@@ -12,7 +12,7 @@ def list_locations():
 
 
 @router.get("/{location_id}/pokemon", response_model=list[LocationPokemon])
-def list_location_pokemon(location_id: str):
+def list_location_pokemon(location_id: int):
     pokemon = location_service.get_location_pokemon(location_id)
     if pokemon is None:
         raise HTTPException(status_code=404, detail="존재하지 않는 장소입니다.")
