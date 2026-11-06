@@ -1,0 +1,19 @@
+{
+  "locations": [
+    { "id": "route-1", "name": "1번도로" },
+    { "id": "route-2", "name": "2번도로" },
+    { "id": "test-empty", "name": "빈 장소(테스트용)" }
+  ],
+  "pokemon": [
+    { "id": 504, "name": "보르쥐", "types": ["normal"], "image": "" },
+    { "id": 506, "name": "요테리", "types": ["normal"], "image": "" },
+    { "id": 509, "name": "쌔비냥", "types": ["dark"], "image": "" }
+  ],
+  "encounters": [
+    { "location_id": "route-1", "pokemon_id": 504 },
+    { "location_id": "route-1", "pokemon_id": 506 },
+    { "location_id": "route-2", "pokemon_id": 504 },
+    { "location_id": "route-2", "pokemon_id": 506 },
+    { "location_id": "route-2", "pokemon_id": 509 }
+  ]
+}
